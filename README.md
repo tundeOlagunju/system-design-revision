@@ -8,16 +8,19 @@ each note is a single portable Markdown file.
 
 ```
 .
-├── skills/                       # reusable Claude Code skills
-│   └── system-design-playbook/
-│       └── SKILL.md              # the playbook skill (template + rules)
+├── .claude/
+│   └── skills/                   # reusable Claude Code skills (auto-discovered)
+│       └── system-design-playbook/
+│           └── SKILL.md          # the playbook skill (template + rules)
 ├── <question>/                   # one folder per system design question
 │   └── <question>_<resource>.md  # one note per resource/breakdown
 └── README.md
 ```
 
-- **`skills/`** — the Claude Code skills used to produce the notes. Currently holds
-  `system-design-playbook`, which fills a fixed one-page revision template.
+- **`.claude/skills/`** — the Claude Code skills used to produce the notes. Claude Code
+  auto-discovers project skills from `.claude/skills/` at the repo root, so cloning this
+  repo makes the skill available with no setup. Currently holds `system-design-playbook`,
+  which fills a fixed one-page revision template.
 - **One folder per question** — e.g. `whatsapp/`. A question can have several notes
   over time as it's studied from different sources.
 - **One Markdown file per resource** — named `<question>_<resource>.md`, e.g.
@@ -32,12 +35,11 @@ re-derive them from v1 + the moves.
 
 ### Use the skill in Claude Code
 
-1. Copy the skill into your Claude Code skills directory:
-   ```bash
-   cp -r skills/system-design-playbook ~/.claude/skills/
-   ```
-   (Drop the whole `system-design-playbook/` folder into `.claude/skills/`.)
-2. In Claude Code, invoke it with a breakdown link or a pasted breakdown:
+1. Clone this repo and start Claude Code **inside the clone** — that's it. The skill in
+   `.claude/skills/system-design-playbook/` is auto-discovered as a project skill; no
+   copying into `~/.claude/skills/` is needed. (Want it available in every project? Copy
+   it once with `cp -r .claude/skills/system-design-playbook ~/.claude/skills/`.)
+2. Invoke it with a breakdown link or a pasted breakdown:
    ```
    /system-design-playbook https://www.hellointerview.com/learn/system-design/problem-breakdowns/whatsapp
    ```
