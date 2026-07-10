@@ -1,15 +1,15 @@
 # System Design Revision
 
-One-page, self-testable revision notes for system design questions — generated from
-published breakdowns using a Claude Code skill, with the diagrams converted to ASCII so
-each note is a single portable Markdown file.
+One-page, self-testable revision notes for system design questions. Each note is a
+single portable Markdown file with the diagrams rendered as ASCII, generated from a
+published breakdown using the `system-design-playbook` Claude Code skill.
 
 ## Structure
 
 ```
 .
 ├── .claude/
-│   └── skills/                   # reusable Claude Code skills (auto-discovered)
+│   └── skills/
 │       └── system-design-playbook/
 │           └── SKILL.md          # the playbook skill (template + rules)
 ├── <question>/                   # one folder per system design question
@@ -17,45 +17,43 @@ each note is a single portable Markdown file.
 └── README.md
 ```
 
-- **`.claude/skills/`** — the Claude Code skills used to produce the notes. Claude Code
-  auto-discovers project skills from `.claude/skills/` at the repo root, so cloning this
-  repo makes the skill available with no setup. Currently holds `system-design-playbook`,
-  which fills a fixed one-page revision template.
-- **One folder per question** — e.g. `whatsapp/`. A question can have several notes
-  over time as it's studied from different sources.
+- **`.claude/skills/`** — Claude Code skills used to produce the notes. Holds
+  `system-design-playbook`, which fills a fixed one-page revision template.
+- **One folder per question** — e.g. `whatsapp/`. A question can hold several notes as
+  it's studied from different sources.
 - **One Markdown file per resource** — named `<question>_<resource>.md`, e.g.
   `whatsapp/whatsapp_hello_interview.md` (the WhatsApp breakdown from Hello Interview).
 
-Each note follows the same shape: **Key constraint → Requirements → v1 diagram →
+Every note follows the same shape: **Key constraint → Requirements → v1 diagram →
 Evolve it (the `➕`/`❌` moves) → final diagram → Decisions → Reusable pattern →
-Gotchas**. The idea is to self-test: cover the Decisions and final diagram, then
-re-derive them from v1 + the moves.
+Gotchas**. Study by self-testing: cover the Decisions and final diagram, then re-derive
+them from v1 + the moves.
 
 ## Usage
 
-### Use the skill in Claude Code
+### Generate a note with the skill
 
-1. Clone this repo and start Claude Code **inside the clone** — that's it. The skill in
-   `.claude/skills/system-design-playbook/` is auto-discovered as a project skill; no
-   copying into `~/.claude/skills/` is needed. (Want it available in every project? Copy
-   it once with `cp -r .claude/skills/system-design-playbook ~/.claude/skills/`.)
-2. Invoke it with a breakdown link or a pasted breakdown:
+1. Clone the repo and start Claude Code inside it. The `system-design-playbook` skill is
+   available as a project skill.
+2. Invoke it with a breakdown link (or a pasted breakdown):
    ```
    /system-design-playbook https://www.hellointerview.com/learn/system-design/problem-breakdowns/whatsapp
    ```
-3. The skill fetches the source text, then **asks you to paste the source diagrams**
-   (it never invents diagrams — paste the v1/simple and final/deep-dive images or
-   Excalidraw SVGs). It converts those to ASCII, fills the template, and saves the note.
+3. The skill reads the source, then asks you to paste the source diagrams — it never
+   invents diagrams. Paste the v1/simple and final/deep-dive images or Excalidraw SVGs.
+4. It converts the diagrams to ASCII, fills the template, and writes the note to
+   `<question>/<question>_<resource>.md`, creating the question folder if needed.
 
-> **Where notes are saved:** the skill writes each finished note into the **repo root
-> of your current working directory** as `<question>/<question>_<resource>.md`, creating
-> the question folder if it doesn't exist. Run Claude Code from inside your clone of this
-> repo and notes land in the right place automatically — no path editing needed.
+To use the skill across all your projects, copy it into your personal skills directory:
 
-### Just read the notes
+```bash
+cp -r .claude/skills/system-design-playbook ~/.claude/skills/
+```
 
-Browse the per-question folders and open any `.md` — the ASCII diagrams render in any
-Markdown viewer or plain text.
+### Read the notes
+
+Open any `.md` under a question folder — the ASCII diagrams render in any Markdown
+viewer or plain text.
 
 ## Questions covered
 
